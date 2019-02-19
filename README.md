@@ -12,4 +12,4 @@ _permanently_ (change .bashrc to your profile file)
 
 ## Usages
 
-./pushbullet-cli note test
+./pushbullet-cli note title body

@@ -21,7 +21,7 @@ func main() {
 		{
 			err := sendNote(argsWithoutProg[1:])
 			if err != nil {
-				log.Fatalf("Unable to send pushbullet note %e", err)
+				log.Fatalf("Unable to send pushbullet note, %s", err.Error())
 			}
 		}
 	default:
@@ -34,14 +34,17 @@ func main() {
 func sendNote(args []string) error {
 	key, err := getPushbulletKey()
 	if err != nil {
+		if err == NotFoundError {
+			return errors.New("PB_ACCESS_TOKEN not set")
+		}
 		return err
 	}
 
 	pb := pushbullet.New(key)
 	n := requests.NewNote()
-	n.Title = ""
-	body := args[0]
-	for _, s := range args[1:] {
+	n.Title = args[0]
+	body := args[1]
+	for _, s := range args[2:] {
 		body += " " + s
 	}
 	n.Body = body
