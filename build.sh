@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-go build -ldflags="-s -w" -o ./assets/pushbullet-cli
+GOOS=windows GOARCH=386 go build -ldflags="-s -w" -o ./assets/pushbullet-cli-windows-386.exe
+GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o ./assets/pushbullet-cli-windows-amd64.exe
+GOOS=linux GOARCH=386 go build -ldflags="-s -w" -o ./assets/pushbullet-cli-linux-386.exe
+GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o ./assets/pushbullet-cli-linux-amd64.exe
