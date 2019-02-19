@@ -42,13 +42,17 @@ func sendNote(args []string) error {
 
 	pb := pushbullet.New(key)
 	n := requests.NewNote()
-	n.Title = args[0]
-	body := args[1]
-	for _, s := range args[2:] {
-		body += " " + s
-	}
-	n.Body = body
 
+	if len(args) == 1 {
+		n.Title = args[0]
+	} else {
+		n.Title = args[0]
+		body := args[1]
+		for _, s := range args[2:] {
+			body += " " + s
+		}
+		n.Body = body
+	}
 	// Send the note via Pushbullet.
 	if _, err := pb.PostPushesNote(n); err != nil {
 		return err
